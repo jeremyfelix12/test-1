@@ -44,7 +44,7 @@ uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", 
 if uploaded_file is not None:
     # Tampilkan gambar yang diunggah
     image = Image.open(uploaded_file)
-    resized_image = image.resize((320, 320))  # Resize gambar ke 320x320
+    resized_image = image.resize((256, 256))  # Resize gambar ke 320x320
 
     # Gunakan CSS untuk memposisikan gambar di tengah
     image_html = """
