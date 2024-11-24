@@ -55,14 +55,14 @@ if uploaded_file is not None:
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
 
-        # Placeholder untuk hasil prediksi
-predicted_class_placeholder = st.markdown(
-    "<h3>Predicted Class: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
-)
-confidence_placeholder = st.markdown(
-    "<h3>Confidence: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
-)
-
+    # Placeholder untuk hasil prediksi
+    predicted_class_placeholder = st.markdown(
+        "<h3>Predicted Class: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
+    )
+    confidence_placeholder = st.markdown(
+        "<h3>Confidence: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
+    )
+    
     # Perbarui hasil prediksi dan confidence
     predicted_class_placeholder.markdown(
         f"<h3>Predicted Class: <span style='color: blue;'>{predicted_class}</span></h3>", unsafe_allow_html=True
