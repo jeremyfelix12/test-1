@@ -38,14 +38,6 @@ def preprocess_image(image, target_size):
 # Streamlit App
 st.title("Klasifikasi Penyakit Ginjal")
 
-# Placeholder untuk hasil prediksi
-predicted_class_placeholder = st.markdown(
-    "<h3>Predicted Class: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
-)
-confidence_placeholder = st.markdown(
-    "<h3>Confidence: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
-)
-
 # Upload gambar
 uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", "png"])
 
@@ -54,6 +46,14 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     resized_image = image.resize((224, 224))
     st.image(resized_image, caption="Uploaded Image (Resized to 224x224)", use_column_width=False)
+
+    # Placeholder untuk hasil prediksi
+predicted_class_placeholder = st.markdown(
+    "<h3>Predicted Class: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
+)
+confidence_placeholder = st.markdown(
+    "<h3>Confidence: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
+)
 
     # Preprocess gambar
     processed_image = preprocess_image(image, target_size=(224, 224))
