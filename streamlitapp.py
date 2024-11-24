@@ -67,10 +67,6 @@ if uploaded_file is not None:
     predictions = model.predict(processed_image)
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
-
-
-    # Tampilkan label hasil dari awal
-    st.markdown("<h3 style='margin-top:20px;'>Hasil:</h3>", unsafe_allow_html=True)
     
     # Tampilkan hasil dengan format yang diminta
     result_html = f"""
