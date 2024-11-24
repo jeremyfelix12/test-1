@@ -44,7 +44,6 @@ uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", 
 if uploaded_file is not None:
     # Tampilkan gambar yang diunggah
     image = Image.open(uploaded_file)
-    image_resized = image.resize((320, 320))  # Resize gambar menjadi 300x300
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
     # Preprocess gambar
