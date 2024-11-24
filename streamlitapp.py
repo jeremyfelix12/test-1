@@ -49,7 +49,7 @@ if uploaded_file is not None:
     # Gunakan CSS untuk memposisikan gambar di tengah
     image_html = """
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-        <img src="data:image/png;base64,{}" alt="Uploaded Image" style="width: 224px; height: 224px; border: 1px solid #ddd; border-radius: 10px;"/>
+        <img src="data:image/png;base64,{}" alt="Uploaded Image" style="width: 256px; height: 256px; border: 1px solid #ddd; border-radius: 10px;"/>
     </div>
     """
     # Konversi gambar ke base64
@@ -61,7 +61,7 @@ if uploaded_file is not None:
     st.markdown(image_html.format(base64_image), unsafe_allow_html=True)
 
     # Preprocess gambar
-    processed_image = preprocess_image(image, target_size=(224, 224))
+    processed_image = preprocess_image(image, target_size=(256, 256))
 
     # Prediksi
     predictions = model.predict(processed_image)
