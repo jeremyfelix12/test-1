@@ -67,14 +67,12 @@ if uploaded_file is not None:
     predictions = model.predict(processed_image)
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
-    
+
     # Tampilkan hasil dengan format yang diminta
     result_html = f"""
-    <div style="display: flex; gap: 20px; align-items: center; margin-top: 20px;">
-        <h3 style="margin: 0;">Prediksi:</h3>
-        <h3 style="margin: 0; color: #007BFF;">{predicted_class}</h3>
-        <h3 style="margin: 0;">Confidence:</h3>
-        <h3 style="margin: 0; color: #28A745;">{confidence:.2f}</h3>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
+        <h3 style="margin: 0; color: #007BFF;">Prediksi: {predicted_class}</h3>
+        <h3 style="margin: 0; color: #28A745;">Confidence: {confidence:.2f}</h3>
     </div>
     """
     st.markdown(result_html, unsafe_allow_html=True)
