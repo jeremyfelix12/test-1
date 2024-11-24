@@ -70,7 +70,7 @@ if uploaded_file is not None:
 
     # Tampilkan hasil dengan format yang diminta
     result_html = f"""
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px;">
         <h3 style="margin: 0; color: #007BFF;">Prediksi: {predicted_class}</h3>
         <h3 style="margin: 0; color: #28A745;">Confidence: {confidence:.2f}</h3>
     </div>
