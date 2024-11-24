@@ -41,10 +41,20 @@ st.title("Klasifikasi Penyakit Ginjal")
 # Upload gambar
 uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", "png"])
 
+# Inisialisasi placeholder untuk prediksi dan confidence
+col1, col2 = st.columns([1, 1])  # Dua kolom: untuk gambar dan hasil
+with col2:
+    st.write("### Prediksi: ")
+    prediction_placeholder = st.empty()
+    st.write("### Confidence: ")
+    confidence_placeholder = st.empty()
+
 if uploaded_file is not None:
-    # Tampilkan gambar yang diunggah
+    # Tampilkan gambar yang diunggah (512x512 pixel)
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    resized_image = image.resize((512, 512))
+    with col1:
+        st.image(resized_image, caption="Uploaded Image", width=512)
 
     # Preprocess gambar
     processed_image = preprocess_image(image, target_size=(224, 224))
@@ -54,6 +64,6 @@ if uploaded_file is not None:
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
 
-    # Tampilkan hasil
-    st.write(f"### Predicted Class: {predicted_class}")
-    st.write(f"### Confidence: {confidence:.2f}")
+    # Update hasil di placeholder
+    prediction_placeholder.write(predicted_class)
+    confidence_placeholder.write(f"{confidence:.2f}")
