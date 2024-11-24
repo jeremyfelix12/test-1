@@ -48,7 +48,20 @@ if uploaded_file is not None:
     # Tampilkan gambar yang diunggah
     image = Image.open(uploaded_file)
     resized_image = image.resize((320, 320))  # Resize gambar ke 320x320
-    st.image(resized_image, caption="Uploaded Image", use_column_width=False)
+
+    # Gunakan CSS untuk memposisikan gambar di tengah
+    image_html = """
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <img src="data:image/png;base64,{}" alt="Uploaded Image" style="width: 320px; height: 320px; border: 1px solid #ddd; border-radius: 10px;"/>
+    </div>
+    """
+    # Konversi gambar ke base64
+    import base64
+    from io import BytesIO
+    buffer = BytesIO()
+    resized_image.save(buffer, format="PNG")
+    base64_image = base64.b64encode(buffer.getvalue()).decode()
+    st.markdown(image_html.format(base64_image), unsafe_allow_html=True)
 
     # Preprocess gambar
     processed_image = preprocess_image(image, target_size=(224, 224))
