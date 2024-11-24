@@ -1,6 +1,6 @@
 import streamlit as st
 from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import numpy as np
 from PIL import Image
 import requests
@@ -38,21 +38,14 @@ def preprocess_image(image, target_size):
 # Streamlit App
 st.title("Klasifikasi Penyakit Ginjal")
 
-# Tempat tetap untuk gambar
-placeholder = st.empty()
-
 # Upload gambar
 uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", "png"])
 
-# Placeholder untuk hasil
-hasil_placeholder = st.empty()
-
 if uploaded_file is not None:
-    # Buka dan tampilkan gambar dengan ukuran tetap
+    # Tampilkan gambar yang diunggah
     image = Image.open(uploaded_file)
-    image_resized = image.resize((300, 300))  # Resize gambar menjadi 300x300
-    with placeholder.container():
-        st.image(image_resized, caption="Uploaded Image", use_column_width=False)
+    image_resized = image.resize((320, 320))  # Resize gambar menjadi 300x300
+    st.image(image, caption="Uploaded Image", use_column_width=True)
 
     # Preprocess gambar
     processed_image = preprocess_image(image, target_size=(224, 224))
@@ -62,26 +55,6 @@ if uploaded_file is not None:
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
 
-    # Tampilkan hasil dengan gaya
-    hasil_placeholder.markdown(
-        f"""
-        <div style="text-align: center; font-size: 20px;">
-            <strong>Hasil:</strong> 
-            <span style="font-size: 24px; color: green;"><strong>Prediksi:</strong> {predicted_class}</span> 
-            <span style="font-size: 24px; color: blue;"><strong>Confidence:</strong> {confidence:.2f}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-else:
-    # Placeholder kosong untuk hasil
-    hasil_placeholder.markdown(
-        """
-        <div style="text-align: center; font-size: 20px;">
-            <strong>Hasil:</strong> 
-            <span style="font-size: 24px; color: gray;"><strong>Prediksi:</strong> -</span> 
-            <span style="font-size: 24px; color: gray;"><strong>Confidence:</strong> -</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    # Tampilkan hasil
+    st.write(f"### Predicted Class: {predicted_class}")
+    st.write(f"### Confidence: {confidence:.2f}")
