@@ -41,9 +41,6 @@ st.title("Klasifikasi Penyakit Ginjal")
 # Upload gambar
 uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", "png"])
 
-# Tampilkan label hasil dari awal
-st.markdown("<h3 style='margin-top:20px;'>Hasil:</h3>", unsafe_allow_html=True)
-
 if uploaded_file is not None:
     # Tampilkan gambar yang diunggah
     image = Image.open(uploaded_file)
@@ -71,6 +68,10 @@ if uploaded_file is not None:
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
 
+
+    # Tampilkan label hasil dari awal
+    st.markdown("<h3 style='margin-top:20px;'>Hasil:</h3>", unsafe_allow_html=True)
+    
     # Tampilkan hasil dengan format yang diminta
     result_html = f"""
     <div style="display: flex; gap: 20px; align-items: center; margin-top: 20px;">
