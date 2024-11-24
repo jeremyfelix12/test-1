@@ -41,11 +41,19 @@ st.title("Klasifikasi Penyakit Ginjal")
 # Upload gambar
 uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", "png"])
 
+# Placeholder untuk hasil
+hasil_placeholder = st.empty()
+
 if uploaded_file is not None:
-    # Tampilkan gambar yang diunggah dengan ukuran 224x224 pixel
+    # Tampilkan gambar yang diunggah
     image = Image.open(uploaded_file)
-    resized_image = image.resize((224, 224))
-    st.image(resized_image, caption="Uploaded Image (Resized to 224x224)", use_column_width=False)
+    resized_image = image.resize((224, 224))  # Ubah ukuran menjadi 224x224
+    st.image(
+        resized_image,
+        caption="Gambar yang Diunggah (224x224)",
+        width=224,  # Pastikan ukuran tetap 224px
+        use_column_width=False
+    )
 
     # Preprocess gambar
     processed_image = preprocess_image(image, target_size=(224, 224))
@@ -55,18 +63,29 @@ if uploaded_file is not None:
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
 
-    # Placeholder untuk hasil prediksi
-    predicted_class_placeholder = st.markdown(
-        "<h3>Predicted Class: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
+    # Tampilkan hasil di bawah gambar
+    hasil_placeholder.markdown(
+        f"""
+        <div style="text-align: center; margin-top: 20px;">
+            <h3 style="font-size: 24px;">Hasil:</h3>
+            <p style="font-size: 20px;">
+                <strong>Prediksi:</strong> {predicted_class}<br>
+                <strong>Confidence:</strong> {confidence:.2f}
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
-    confidence_placeholder = st.markdown(
-        "<h3>Confidence: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
-    )
-    
-    # Perbarui hasil prediksi dan confidence
-    predicted_class_placeholder.markdown(
-        f"<h3>Predicted Class: <span style='color: blue;'>{predicted_class}</span></h3>", unsafe_allow_html=True
-    )
-    confidence_placeholder.markdown(
-        f"<h3>Confidence: <span style='color: blue;'>{confidence:.2f}</span></h3>", unsafe_allow_html=True
+else:
+    # Jika belum ada gambar, tetap tampilkan placeholder untuk hasil
+    hasil_placeholder.markdown(
+        """
+        <div style="text-align: center; margin-top: 20px;">
+            <h3 style="font-size: 24px;">Hasil:</h3>
+            <p style="font-size: 20px;">
+                Silakan unggah gambar untuk melihat prediksi.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
