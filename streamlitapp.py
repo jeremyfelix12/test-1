@@ -42,12 +42,14 @@ st.title("Klasifikasi Penyakit Ginjal")
 uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", "png"])
 
 # Inisialisasi placeholder untuk prediksi dan confidence
-col1, col2 = st.columns([1, 1])  # Dua kolom: untuk gambar dan hasil
+st.write("### Hasil Prediksi")
+col1, col2 = st.columns([2, 1])  # Dua kolom dengan proporsi 2:1
+
 with col2:
     st.write("### Prediksi: ")
-    prediction_placeholder = st.empty()
+    prediction_placeholder = st.empty()  # Placeholder untuk prediksi
     st.write("### Confidence: ")
-    confidence_placeholder = st.empty()
+    confidence_placeholder = st.empty()  # Placeholder untuk confidence
 
 if uploaded_file is not None:
     # Tampilkan gambar yang diunggah (512x512 pixel)
