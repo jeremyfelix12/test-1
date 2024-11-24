@@ -1,6 +1,6 @@
 import streamlit as st
 from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import numpy as np
 from PIL import Image
 import requests
@@ -41,14 +41,10 @@ st.title("Klasifikasi Penyakit Ginjal")
 # Upload gambar
 uploaded_file = st.file_uploader("Silahkan Upload Gambar", type=["jpg", "jpeg", "png"])
 
-# Tampilkan label hasil dari awal
-st.markdown("<h3 style='margin-top:20px;'>Hasil:</h3>", unsafe_allow_html=True)
-
 if uploaded_file is not None:
     # Tampilkan gambar yang diunggah
     image = Image.open(uploaded_file)
-    resized_image = image.resize((320, 320))  # Resize gambar ke 320x320
-    st.image(resized_image, caption="Uploaded Image", use_column_width=False)
+    st.image(image, caption="Uploaded Image", use_column_width=True)
 
     # Preprocess gambar
     processed_image = preprocess_image(image, target_size=(224, 224))
@@ -58,13 +54,6 @@ if uploaded_file is not None:
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
 
-    # Tampilkan hasil dengan format yang diminta
-    result_html = f"""
-    <div style="display: flex; gap: 20px; align-items: center; margin-top: 20px;">
-        <h3 style="margin: 0;">Prediksi:</h3>
-        <h3 style="margin: 0; color: #007BFF;">{predicted_class}</h3>
-        <h3 style="margin: 0;">Confidence:</h3>
-        <h3 style="margin: 0; color: #28A745;">{confidence:.2f}</h3>
-    </div>
-    """
-    st.markdown(result_html, unsafe_allow_html=True)
+    # Tampilkan hasil
+    st.write(f"### Predicted Class: {predicted_class}")
+    st.write(f"### Confidence: {confidence:.2f}")
