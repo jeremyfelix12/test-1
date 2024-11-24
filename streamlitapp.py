@@ -47,14 +47,6 @@ if uploaded_file is not None:
     resized_image = image.resize((224, 224))
     st.image(resized_image, caption="Uploaded Image (Resized to 224x224)", use_column_width=False)
 
-    # Placeholder untuk hasil prediksi
-predicted_class_placeholder = st.markdown(
-    "<h3>Predicted Class: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
-)
-confidence_placeholder = st.markdown(
-    "<h3>Confidence: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
-)
-
     # Preprocess gambar
     processed_image = preprocess_image(image, target_size=(224, 224))
 
@@ -62,6 +54,14 @@ confidence_placeholder = st.markdown(
     predictions = model.predict(processed_image)
     predicted_class = class_labels[np.argmax(predictions)]
     confidence = np.max(predictions)
+
+        # Placeholder untuk hasil prediksi
+predicted_class_placeholder = st.markdown(
+    "<h3>Predicted Class: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
+)
+confidence_placeholder = st.markdown(
+    "<h3>Confidence: <span style='color: gray;'>Belum tersedia</span></h3>", unsafe_allow_html=True
+)
 
     # Perbarui hasil prediksi dan confidence
     predicted_class_placeholder.markdown(
